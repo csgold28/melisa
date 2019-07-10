@@ -12,12 +12,12 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                                @error('nama')
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -38,12 +38,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="provinsi" class="col-md-4 col-form-label text-md-right">{{ __('Provinsi') }}</label>
+                            <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Provinsi') }}</label>
 
                             <div class="col-md-6">
-                                <input id="provinsi" type="text" class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" value="{{ old('provinsi') }}" required autocomplete="provinsi" autofocus>
+                                <select class="form-control" name="provinces" id="provinces">
+                                    <option value="0" disabled="true" selected="true">--Pilih Provinsi--</option>
+                                    @foreach ($provinces as $key => $value)
+                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                        
+                                    @endforeach
+                                </select>
 
-                                @error('provinsi')
+                                @error('provinces')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -51,12 +57,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kab_kota" class="col-md-4 col-form-label text-md-right">{{ __('Kabupaten / Kota') }}</label>
+                            <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Kabupaten / Kota') }}</label>
 
                             <div class="col-md-6">
-                                <input id="kab_kota" type="text" class="form-control @error('kab_kota') is-invalid @enderror" name="kab_kota" value="{{ old('kab_kota') }}" required autocomplete="kab_kota" autofocus>
+                                    <select class="form-control" name="regencies" id="regencies">
+                                            <option value="0" disabled="true" selected="true">--Pilih Kabupaten/Kota--</option>
+                                    </select>
 
-                                @error('kab_kota')
+                                @error('regencies')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -64,12 +72,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kecamatan" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
+                            <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="kecamatan" type="text" class="form-control @error('kecamatan') is-invalid @enderror" name="kecamatan" value="{{ old('kecamatan') }}" required autocomplete="kecamatan" autofocus>
+                                    <select class="form-control" name="districts" id="districts">
+                                            <option value="0" disabled="true" selected="true">--Pilih Kecamatan--</option>
+                                    </select>
 
-                                @error('kecamatan')
+                                @error('districts')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -77,12 +87,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="desa_kel" class="col-md-4 col-form-label text-md-right">{{ __('Desa / Kelurahan') }}</label>
+                            <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Desa / Kelurahan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="desa_kel" type="text" class="form-control @error('desa_kel') is-invalid @enderror" name="desa_kel" value="{{ old('desa_kel') }}" required autocomplete="desa_kel" autofocus>
+                                    <select class="form-control" name="villages" id="villages">
+                                            <option value="0" disabled="true" selected="true">--Pilih Desa/Kelurahan--</option>
+                                    </select>
 
-                                @error('desa_kel')
+                                @error('villages')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -93,7 +105,7 @@
                             <label for="no_hp" class="col-md-4 col-form-label text-md-right">{{ __('No. Hanphone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="no_hp" type="text" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" value="{{ old('no_hp') }}" required autocomplete="no_hp" autofocus>
+                                <input id="no_hp" type="number" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" value="{{ old('no_hp') }}" required autocomplete="no_hp" autofocus>
 
                                 @error('no_hp')
                                     <span class="invalid-feedback" role="alert">
@@ -147,15 +159,20 @@
                                 </button>
                             </div>
                         </div>
-                        <br>
-                        <label for="Daftar">Sudah punya Akun ?</label>
                     </form>
-                    <a class="btn btn-primary" href="{{ route('login') }}">
-                        {{ __('Masuk') }}
-                        </a>
+                        <br>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <label for="Daftar">Sudah punya Akun ?</label>
+                            <br>
+                            <a class="btn btn-primary" href="{{ route('login') }}">{{ __('Masuk') }}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection

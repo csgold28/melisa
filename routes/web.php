@@ -18,3 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//ajax request only
+Route::get('/location/provinces', 'RegisterController@provinces');
+Route::get('/location/regency', 'RegisterController@regency');
+Route::get('/location/district', 'RegisterController@district');
+Route::get('/location/village', 'RegisterController@village');
+
+Route::get('/location', 'LocationController@provinces');
+Route::get('/json-regencies', 'LocationController@regencies');
+
+
+
+
+
